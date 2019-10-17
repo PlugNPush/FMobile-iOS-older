@@ -328,7 +328,7 @@ class DataManager {
                 }
             }
             
-            if connectedMCC == targetMCC && connectedMNC == targetMNC && carrierName == "Carrier" {
+            if carrierName == "Carrier" && homeName != "null" && !homeName.isEmpty {
                 carrierName = homeName
             }
             
