@@ -47,7 +47,7 @@
 			<string>fr.plugn.fmobile</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fmobile</string>
+				<string>fmobile-old</string>
 			</array>
 		</dict>
 	</array>

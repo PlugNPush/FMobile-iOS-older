@@ -399,7 +399,10 @@ class TableViewController: UITableViewController, CLLocationManagerDelegate {
     func newios(){
            if #available(iOS 13.1, *) {
                let alert = UIAlertController(title: "new_ios_warning".localized().format([UIDevice.current.systemVersion]), message: "new_ios_description".localized(), preferredStyle: .alert)
-               alert.addAction(UIAlertAction(title: "close".localized(), style: .cancel, handler: nil))
+               alert.addAction(UIAlertAction(title: "download_fmobile2".localized(), style: .cancel) { (UIAlertAction) in
+                guard let mailto = URL(string: "https://itunes.apple.com/fr/app/fmobile-stop-national-roaming/id1449356942?l=en&mt=8") else { return }
+                UIApplication.shared.open(mailto)
+            })
                present(alert, animated: true, completion: nil)
                
                return
@@ -504,6 +507,8 @@ class TableViewController: UITableViewController, CLLocationManagerDelegate {
         start()
         loadUI()
         refreshSections()
+        
+        newios()
         
         let date0120 = Date(timeIntervalSinceReferenceDate: 599529600.0)
         let date = Date()
