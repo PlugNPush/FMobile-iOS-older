@@ -85,35 +85,6 @@ class TableViewController: UITableViewController, CLLocationManagerDelegate {
             UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
     }
     
-    func firstStart(){
-        let dataManager = DataManager()
-        let alert = UIAlertController(title: "first_start_title".localized(), message: "first_start_description".localized(), preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "video_tutorial".localized(), style: .default) { (UIAlertAction) in
-            guard let mailto = URL(string: "https://youtu.be/pTQKVbSE38U") else { return }
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(mailto)
-            } else {
-                UIApplication.shared.openURL(mailto)
-            }
-            
-        })
-        alert.addAction(UIAlertAction(title: "install_shortcuts".localized(), style: .default) { (UIAlertAction) in
-            guard let discord = URL(string: "http://raccourcis.ios.free.fr/fmobile") else { return }
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(discord)
-            } else {
-                UIApplication.shared.openURL(discord)
-            }
-            
-        })
-        alert.addAction(UIAlertAction(title: "close".localized(), style: .default, handler: nil))
-        alert.addAction(UIAlertAction(title: "never_show_again".localized(), style: .cancel) { (UIAlertAction) in
-            dataManager.datas.set(true, forKey: "didFinishFirstStart")
-            dataManager.datas.synchronize()
-        })
-        present(alert, animated: true, completion: nil)
-    }
-    
     func seturl(){
         let datas = Foundation.UserDefaults.standard
         
@@ -409,9 +380,9 @@ class TableViewController: UITableViewController, CLLocationManagerDelegate {
     }
     
     func newios(){
-           if #available(iOS 13.1, *) {
+        if #available(iOS 12.0, *) {
                let alert = UIAlertController(title: "new_ios_warning".localized().format([UIDevice.current.systemVersion]), message: "new_ios_description".localized(), preferredStyle: .alert)
-               alert.addAction(UIAlertAction(title: "download_fmobile2".localized(), style: .cancel) { (UIAlertAction) in
+               alert.addAction(UIAlertAction(title: "download_fmobile3".localized(), style: .cancel) { (UIAlertAction) in
                 guard let mailto = URL(string: "https://itunes.apple.com/fr/app/fmobile-stop-national-roaming/id1449356942?l=en&mt=8") else { return }
                 UIApplication.shared.open(mailto)
             })
@@ -601,11 +572,6 @@ class TableViewController: UITableViewController, CLLocationManagerDelegate {
         datas.set(false, forKey: "isRunning")
         datas.synchronize()
         
-        var didFinishFirstStart = false
-        if(datas.value(forKey: "didFinishFirstStart") != nil){
-            didFinishFirstStart = datas.value(forKey: "didFinishFirstStart") as? Bool ?? false
-        }
-        
         var stopverification = false
         if datas.value(forKey: "stopverification") != nil {
             stopverification = datas.value(forKey: "stopverification") as? Bool ?? false
@@ -633,10 +599,6 @@ class TableViewController: UITableViewController, CLLocationManagerDelegate {
                 print("Version after update: \(version)")
         } else if appVersion < version {
             downgrade()
-        }
-        
-        if !didFinishFirstStart{
-            delay(5) { self.firstStart() }
         }
         
         if !warningApproved{
@@ -1330,6 +1292,7 @@ class TableViewController: UITableViewController, CLLocationManagerDelegate {
             net.elements += [UIElementLabel(id: "generation", text: generation)]
         }
         
+        if #available(iOS 10.0, *) {
         if !dataManager.disableFMobileCore || dataManager.modeExpert || (dataManager.connectedMCC == "208" && dataManager.connectedMNC == "15"){
             net.elements += [UIElementButton(id: "", text: "set_no_network".localized()) { (button) in
                 if CLLocationManager.authorizationStatus() == .authorizedAlways {
@@ -1341,30 +1304,29 @@ class TableViewController: UITableViewController, CLLocationManagerDelegate {
                         return
                     }
                     
-                    if #available(iOS 10.0, *) {
-                        let context = appDelegate.persistentContainer.viewContext
-                        guard let entity = NSEntityDescription.entity(forEntityName: "Locations", in: context) else {
-                            return
-                        }
-                        let newCoo = NSManagedObject(entity: entity, insertInto: context)
-                        
-                        newCoo.setValue(latitude, forKey: "lat")
-                        newCoo.setValue(longitude, forKey: "lon")
-                        
-                        do {
-                            try context.save()
-                            print("COORDINATES SAVED!")
-                            
-                            let alert = UIAlertController(title: "no_network_zone_saved".localized(), message: "no_network_zone_saved_description".localized(), preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: "ok".localized(), style: .default, handler: nil))
-                            UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
-                        } catch {
-                            print("Failed saving")
-                        }
+                    let context = appDelegate.persistentContainer.viewContext
+                    guard let entity = NSEntityDescription.entity(forEntityName: "Locations", in: context) else {
+                        return
                     }
+                    let newCoo = NSManagedObject(entity: entity, insertInto: context)
                     
+                    newCoo.setValue(latitude, forKey: "lat")
+                    newCoo.setValue(longitude, forKey: "lon")
+                    
+                    do {
+                        try context.save()
+                        print("COORDINATES SAVED!")
+                        
+                        let alert = UIAlertController(title: "no_network_zone_saved".localized(), message: "no_network_zone_saved_description".localized(), preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "ok".localized(), style: .default, handler: nil))
+                        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+                    } catch {
+                        print("Failed saving")
+                    }
+                
                 }
                 }]
+        }
         }
         
         net.elements += [UIElementSwitch(id: "lowbat", text: lb, d: false)]
@@ -1396,10 +1358,12 @@ class TableViewController: UITableViewController, CLLocationManagerDelegate {
         
         let femto = Section(name: "", elements: [])
         
-        if !dataManager.disableFMobileCore || dataManager.modeExpert || (dataManager.connectedMCC == "208" && dataManager.connectedMNC == "15"){
-            femto.elements += [UIElementButton(id: "", text: zns) { (button) in
-                self.resetAllRecords(in: "Locations")
-            }]
+        if #available(iOS 10.0, *) {
+            if !dataManager.disableFMobileCore || dataManager.modeExpert || (dataManager.connectedMCC == "208" && dataManager.connectedMNC == "15"){
+                femto.elements += [UIElementButton(id: "", text: zns) { (button) in
+                    self.resetAllRecords(in: "Locations")
+                }]
+            }
         }
         
         if dataManager.targetMCC == "208" && dataManager.targetMNC != "15" && dataManager.setupDone{
@@ -1687,7 +1651,6 @@ class TableViewController: UITableViewController, CLLocationManagerDelegate {
                 dataManager.datas.set(false, forKey: "warningApproved")
                 dataManager.datas.set(false, forKey: "setupDone")
                 dataManager.datas.synchronize()
-                self.firstStart()
                 self.warning()
             },
             UIElementSwitch(id: "dispInfoNotif", text: "disp_notifications".localized(), d: true),

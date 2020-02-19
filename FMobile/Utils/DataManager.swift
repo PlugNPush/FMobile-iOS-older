@@ -527,7 +527,7 @@ class DataManager {
             return "HOME"
         } else if country == "--"{
             return "UNKNOWN"
-        } else if country == "DE" || country == "AT" || country == "BE" || country == "BG" || country == "CY" || country == "HR" || country == "DK" || country == "ES" || country == "EE" || country == "FI" || country == "GI" || country == "GR" || country == "HU" || country == "IE" || country == "IS" || country == "IT" || country == "LV" || country == "LI" || country == "LT" || country == "LU" || country == "MT" || country == "NO" || country == "NL" || country == "PL" || country == "PT" || country == "CZ" || country == "RO" || country == "GB" || country == "SK" || country == "SI" || country == "SE" || country == "GP" || country == "GF" || country == "MQ" || country == "YT" || country == "RE" || country == "BL" || country == "MF" {
+        } else if country == "DE" || country == "AT" || country == "BE" || country == "BG" || country == "CY" || country == "HR" || country == "DK" || country == "ES" || country == "EE" || country == "FI" || country == "GI" || country == "GR" || country == "HU" || country == "IE" || country == "IS" || country == "IT" || country == "LV" || country == "LI" || country == "LT" || country == "LU" || country == "MT" || country == "NO" || country == "NL" || country == "PL" || country == "PT" || country == "CZ" || country == "RO" || country == "SK" || country == "SI" || country == "SE" || country == "GP" || country == "GF" || country == "MQ" || country == "YT" || country == "RE" || country == "BL" || country == "MF" {
             return "ALL"
         }
         
