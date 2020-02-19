@@ -1599,24 +1599,6 @@ class TableViewController: UITableViewController, CLLocationManagerDelegate {
                 })
                 alert.addAction(UIAlertAction(title: "ok".localized(), style: .cancel, handler: nil))
                 UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
-            },
-            UIElementButton(id: "", text: "video_tutorial".localized()) { (button) in
-                guard let mailto = URL(string: "https://youtu.be/pTQKVbSE38U") else { return }
-                if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(mailto)
-                } else {
-                    UIApplication.shared.openURL(mailto)
-                }
-                
-            },
-            UIElementButton(id: "", text: "install_shortcuts".localized()) { (button) in
-                guard let mailto = URL(string: "http://raccourcis.ios.free.fr/fmobile/") else { return }
-                if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(mailto)
-                } else {
-                    UIApplication.shared.openURL(mailto)
-                }
-                
             }
         ])
         
