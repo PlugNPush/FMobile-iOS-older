@@ -138,10 +138,10 @@
 "ok" = "De acuerdo";
 "statistics_agreement" = "Participa en la encuesta 208 16";
 "old_ios_warning" = "¡A iOS %@ le faltan características importantes!";
-"old_ios_description" = "Esta aplicación ya no tiene soporte. Por favor, actualiza tu dispositivo a iOS 12 o cualquier versión posterior y descarga FMobile 3 para iOS 12. En tu versión iOS, las operaciones para salir de la itinerancia son manuales.";
+"old_ios_description" = "Esta aplicación ya no tiene soporte. Por favor, descarga el nuevo FMobile 4. En esta versión, las operaciones para salir de la itinerancia son manuales.";
 "new_ios_warning" = "Estás ejecutando iOS %@!";
 "new_ios_description" = "Buenas noticias: está ejecutando un software iOS moderno. Malas noticias: FMobile 1 no es compatible con su dispositivo. Pero no te preocupes! ¡FMobile 3 para iOS 12 ya está disponible en la App Store!";
-"download_fmobile3" = "Descargar FMobile 3";
+"download_fmobile4" = "Descargar FMobile 4";
 
     // SpeedtestViewController
 "speedtest_view_title" = "Prueba de velocidad";

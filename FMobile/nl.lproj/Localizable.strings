@@ -138,10 +138,10 @@
 "ok" = "OK";
 "statistics_agreement" = "Participer à l'enquête 208 16";
 "old_ios_warning" = "iOS% @ mist belangrijke functies!";
-"old_ios_description" = "Deze app wordt nu niet meer ondersteund. Update uw apparaat naar iOS 12 of een latere versie en download FMobile 3 voor iOS 12. Op uw iOS-versie zijn de handelingen om roaming af te sluiten handmatig.";
+"old_ios_description" = "Deze app wordt nu niet meer ondersteund. Download de nieuwe FMobile 4. Op deze versie zijn de handelingen om roaming af te sluiten handmatig.";
 "new_ios_warning" = "Je gebruikt iOS %@!";
 "new_ios_description" = "Goed nieuws: u gebruikt moderne iOS-software. Slecht nieuws: FMobile 1 is niet compatibel met uw apparaat. Maar maak je geen zorgen! FMobile 2 voor iOS 13 is nu beschikbaar in de App Store!";
-"download_fmobile3" = "FMobile 3 downloaden";
+"download_fmobile4" = "FMobile 4 downloaden";
 
     // SpeedtestViewController
 "speedtest_view_title" = "Stroomtest";
