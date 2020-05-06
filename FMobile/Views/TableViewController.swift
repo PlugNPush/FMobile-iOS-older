@@ -389,6 +389,7 @@ class TableViewController: UITableViewController, CLLocationManagerDelegate {
                 UIApplication.shared.openURL(mailto)
             }
         })
+        alert.addAction(UIAlertAction(title: "close".localized(), style: .destructive, handler: nil))
         present(alert, animated: true, completion: nil)
     }
     
