@@ -28,14 +28,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     // FONCTIONS UTILITAIRES
     // -----
     
-    func oldios(){
-        guard #available(iOS 12.0, *) else {
-            let alert = UIAlertController(title: "old_ios_warning".localized().format([UIDevice.current.systemVersion]), message: "old_ios_description".localized(), preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "close".localized(), style: .cancel, handler: nil))
-            self.window?.rootViewController?.present(alert, animated: true, completion: nil)
-            
-            return
-        }
+    func fmobile4() {
+        let alert = UIAlertController(title: "new_ios_warning".localized().format([UIDevice.current.systemVersion]), message: "old_ios_description".localized(), preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "download_fmobile4".localized(), style: .cancel) { (UIAlertAction) in
+            guard let mailto = URL(string: "https://itunes.apple.com/fr/app/fmobile-stop-national-roaming/id1449356942?l=en&mt=8") else { return }
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(mailto)
+            } else {
+                UIApplication.shared.openURL(mailto)
+            }
+        })
+        alert.addAction(UIAlertAction(title: "close".localized(), style: .destructive, handler: nil))
+        self.window?.rootViewController?.present(alert, animated: true, completion: nil)
     }
     
     func delay(_ delay:Double, closure: @escaping () -> ()) {
@@ -493,7 +497,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                             guard let link = URL(string: "shortcuts://run-shortcut?name=RRFM") else { return }
                                 UIApplication.shared.open(link)
                             } else {
-                                self.oldios()
+                                self.fmobile4()
                             }
                         } else {
                             print("S65")
@@ -557,7 +561,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 guard let link = URL(string: "shortcuts://run-shortcut?name=RRFM") else { return }
                     UIApplication.shared.open(link)
                 } else {
-                    self.oldios()
+                    self.fmobile4()
                 }
                 return
             }
@@ -602,7 +606,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                                     guard let link = URL(string: "shortcuts://run-shortcut?name=RRFM") else { return }
                                         UIApplication.shared.open(link)
                                     } else {
-                                        self.oldios()
+                                        self.fmobile4()
                                     }
                                 } else {
                                     if CLLocationManager.authorizationStatus() == .authorizedAlways {
@@ -647,7 +651,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                         guard let link = URL(string: "shortcuts://run-shortcut?name=RRFM") else { return }
                         UIApplication.shared.open(link)
                         } else {
-                            self.oldios()
+                            self.fmobile4()
                         }
                     }
                 } else if dataManager.carrierNetwork == "CTRadioAccessTechnologyEdge" && !dataManager.allow012G && dataManager.out2G == "yes" {
@@ -658,7 +662,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     guard let link = URL(string: "shortcuts://run-shortcut?name=RRFM") else { return }
                     UIApplication.shared.open(link)
                     } else {
-                        self.oldios()
+                        self.fmobile4()
                     }
                 }
             } else if dataManager.connectedMCC == dataManager.targetMCC && dataManager.connectedMNC == dataManager.chasedMNC && DataManager.isOnPhoneCall() {

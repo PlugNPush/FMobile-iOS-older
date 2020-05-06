@@ -369,16 +369,6 @@ class TableViewController: UITableViewController, CLLocationManagerDelegate {
 //    }
 //
     
-    func oldios(){
-        guard #available(iOS 12.0, *) else {
-            let alert = UIAlertController(title: "old_ios_warning".localized().format([UIDevice.current.systemVersion]), message: "old_ios_description".localized(), preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "close".localized(), style: .cancel, handler: nil))
-            present(alert, animated: true, completion: nil)
-            
-            return
-        }
-    }
-    
     func fmobile4() {
         let alert = UIAlertController(title: "new_ios_warning".localized().format([UIDevice.current.systemVersion]), message: "old_ios_description".localized(), preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "download_fmobile4".localized(), style: .cancel) { (UIAlertAction) in
@@ -389,7 +379,7 @@ class TableViewController: UITableViewController, CLLocationManagerDelegate {
                 UIApplication.shared.openURL(mailto)
             }
         })
-        alert.addAction(UIAlertAction(title: "close".localized(), style: .destructive, handler: nil))
+        alert.addAction(UIAlertAction(title: "close".localized(), style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
     
@@ -473,13 +463,6 @@ class TableViewController: UITableViewController, CLLocationManagerDelegate {
                 NotificationManager.sendNotification(for: .update, with: "update_succeeded".localized().format([String(version), String(appVersion)]))
             }
             
-        }
-        
-        if version < 90 {
-            guard #available(iOS 12.0, *) else {
-                self.oldios()
-                return
-            }
         }
         
     }
@@ -1406,7 +1389,7 @@ class TableViewController: UITableViewController, CLLocationManagerDelegate {
                     guard let link = URL(string: "shortcuts://run-shortcut?name=CFM") else { return }
                     UIApplication.shared.open(link)
                 } else {
-                    self.oldios()
+                    self.fmobile4()
                 }
                 },
                 UIElementButton(id: "", text: c555) { (button) in
@@ -1639,7 +1622,7 @@ class TableViewController: UITableViewController, CLLocationManagerDelegate {
                 guard let link = URL(string: "shortcuts://run-shortcut?name=RRFM") else { return }
                     UIApplication.shared.open(link)
                 } else {
-                    self.oldios()
+                    self.fmobile4()
                 }
             },
             UIElementButton(id: "", text: "do_speedtest".localized()) { (button) in
